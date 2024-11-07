@@ -1,7 +1,0 @@
-[
-  { "id": 1, "name": "Pizza", "price": 500, "img": "https://cdn.shopify.com/s/files/1/0274/9503/9079/files/20220211142754-margherita-9920_5a73220e-4a1a-4d33-b38f-26e98e3cd986.jpg?v=1723650067" },
-  { "id": 2, "name": "Burger", "price": 250, "img": "https://www.allrecipes.com/thmb/5JVfA7MxfTUPfRerQMdF-nGKsLY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/25473-the-perfect-basic-burger-DDMFS-4x3-56eaba3833fd4a26a82755bcd0be0c54.jpg" },
-  { "id": 3, "name": "Pasta", "price": 300, "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo-8-efyGKCbx0LO9V80U4kdjtZdARaC62_Q&s" },
-
-  { "id": 5, "name": "Salad", "price": 260, "img": "https://cdn.loveandlemons.com/wp-content/uploads/2021/04/green-salad-500x375.jpg" }
-]
