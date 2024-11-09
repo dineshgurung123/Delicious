@@ -1,17 +1,32 @@
 import React from 'react'
-import Food from '../food.json'
+
 import Cards from './Cards'
 import { useState, useEffect } from 'react'
+import axios from 'axios'
+
+
 
 function offer() {
-
+    
     const [food, setFood] =  useState([])
 
+
+    const fetchFood = async()=> {
+  
+      const response = await axios.get('http://localhost:3001/')
+    
+      const filtered = response.data.data.filter(item=>item.price > 300)
+
+       console.log(filtered)
+
+      setFood(filtered)
+   
+    }
+   
     useEffect(()=>{
         
-const filtered = Food.filter(item=>item.price > 300)
 
-     setFood(filtered)
+     fetchFood()
     
     }, [])
 
