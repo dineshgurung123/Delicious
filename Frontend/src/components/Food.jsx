@@ -1,19 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import foods from '../food.json'
+
 import Card from './Cards.jsx'
 import Navbar from './Navbar.jsx'
 import Footer from './Footer.jsx'
+import axios  from 'axios'
+
 
 function Food() {
+
 const [food, setFood] = useState([])
+
+
+  const fetchFood = async()=>{
+
+   const response =   await axios.get("http://localhost:3001/")
+    
+console.log(response.data.data)
+   setFood(response.data.data)
+
+  }
+
 
 useEffect(()=>{
 
-    setFood(foods)
-}
 
-,[])
- 
+fetchFood()
+
+},[])
+
     return (
         <>
         <div className=' mt-16'>
