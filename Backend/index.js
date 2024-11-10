@@ -54,8 +54,6 @@ app.post("/", async(req, res)=>{
 
 })
 
-
-
 app.get("/:id", async(req, res)=>{
 
 try {
@@ -73,9 +71,20 @@ try {
     console.log(error)
 }
 
+})
 
+
+app.delete("/:id", async(req, res)=>{
+
+  const id = req.params.id.trim()
+
+     await  Food.findByIdAndDelete(id)
+        res.status(200).json({
+            message : "Deleted successfully"
+        })
 
 })
+
 
 
 

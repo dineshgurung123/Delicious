@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { useParams } from 'react-router-dom'
+import { useParams , useNavigate} from 'react-router-dom'
 
 function SingleFood() {
       
       
     const {id} = useParams()
-
+    const navigate = useNavigate()
 
      const [food, setFood] = useState({})
 
@@ -26,7 +26,20 @@ function SingleFood() {
 
    },[])
    
+   
+   const deleteFood= async()=>{
 
+    const response =  await axios.delete(`http://localhost:3001/${id}`)
+     console.log(response)
+
+    if(response.status=== 200){
+
+      alert("Deleted food item")
+      navigate('/')
+
+    }
+
+   }
 
   return (
     <>
@@ -42,10 +55,10 @@ function SingleFood() {
               {food.description}
             </p>
         </div>
-        <div className="px-6 py-4">
-            <button className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 bg-yellow-200 text-gray-black">Add to cart</button>
-            <button className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 bg-red-700 text-green-100">Delete food</button>
-            <button className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 bg-green-500 text-gray-100">Edit food</button>
+        <div className="px-6 py-4 flex justify-around">
+            <button className=" rounded-full px-3 py-1 text-sm font-semibold bg-yellow-200 text-gray-black">Add to cart</button>
+            <button className=" rounded-full px-3 py-1 text-sm font-semibold bg-red-700 text-green-100" onClick={deleteFood}>Delete food</button>
+            <button className=" rounded-full px-3 py-1 text-sm font-semiboldbg-green-500 text-gray-100 bg-green-300">Edit food</button>
         </div>
     </div>
 </div>
