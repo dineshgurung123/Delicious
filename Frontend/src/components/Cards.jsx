@@ -1,12 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 function Cards({item}) {
 
+     
+
     return (
    
    <>
- 
+  <Link to={`/${item._id}`}>
+  
    <div className=' mt-4 p-2 flex flex-wrap gap-1'>
   
   
@@ -29,7 +33,7 @@ function Cards({item}) {
 </div> 
 
    </div>
-   
+   </Link>
    </>
   )
 }

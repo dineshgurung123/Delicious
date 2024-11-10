@@ -56,12 +56,26 @@ app.post("/", async(req, res)=>{
 
 
 
+app.get("/:id", async(req, res)=>{
+
+try {
+    
+    const id = req.params.id.trim()
+ const food = await Food.findById(id)
+
+ res.status(200).json({
+
+    message : "Data fetched successfully",
+    data : food
+ })
+
+} catch (error) {
+    console.log(error)
+}
 
 
 
-
-
-
+})
 
 
 

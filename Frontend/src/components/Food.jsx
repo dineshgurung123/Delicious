@@ -15,7 +15,7 @@ const [food, setFood] = useState([])
 
    const response =   await axios.get("http://localhost:3001/")
     
-console.log(response.data.data)
+
    setFood(response.data.data)
 
   }
