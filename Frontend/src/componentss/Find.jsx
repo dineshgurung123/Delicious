@@ -15,7 +15,7 @@ function Find() {
     const fetchFood=async()=>{
 
 
-      const food =  await axios.get("http://localhost:3001/")
+      const food =  await axios.get("https://delicious-rd7e.onrender.com/")
         
           setFood(food.data.data)
     }

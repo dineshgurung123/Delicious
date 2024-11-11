@@ -13,7 +13,7 @@ const [food, setFood] = useState([])
 
   const fetchFood = async()=>{
 
-   const response =   await axios.get("http://localhost:3001/")
+   const response =   await axios.get("https://delicious-rd7e.onrender.com/")
     
 
    setFood(response.data.data)
