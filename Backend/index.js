@@ -85,7 +85,29 @@ app.delete("/:id", async(req, res)=>{
 
 })
 
+app.patch("/:id",async (req, res)=>{
 
+ const id = req.params.id
+const{name, img, price , description} = req.body
+
+
+ await Food.findByIdAndUpdate(id,{
+
+  name:name,
+  img:img,
+  price:price,
+  description:description
+
+ },
+ {new : true}
+
+)
+ res.status(200).json({
+
+    message : "Updated successfully"
+ })
+
+})
 
 
 //moongodb connect

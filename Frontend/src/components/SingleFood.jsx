@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useParams , useNavigate} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
 
 function SingleFood() {
       
@@ -16,6 +18,7 @@ function SingleFood() {
        console.log(response.data)
 
         setFood(response.data.data)
+        
 
     }
    
@@ -41,6 +44,7 @@ function SingleFood() {
 
    }
 
+  
   return (
     <>
   
@@ -58,7 +62,11 @@ function SingleFood() {
         <div className="px-6 py-4 flex justify-around">
             <button className=" rounded-full px-3 py-1 text-sm font-semibold bg-yellow-200 text-gray-black">Add to cart</button>
             <button className=" rounded-full px-3 py-1 text-sm font-semibold bg-red-700 text-green-100" onClick={deleteFood}>Delete food</button>
+           
+           <Link to={`/edit/${id}`} >
+          
             <button className=" rounded-full px-3 py-1 text-sm font-semiboldbg-green-500 text-gray-100 bg-green-300">Edit food</button>
+            </Link>
         </div>
     </div>
 </div>
