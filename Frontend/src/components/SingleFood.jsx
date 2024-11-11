@@ -14,7 +14,7 @@ function SingleFood() {
 
     const fetchSingleFood = async()=>{
 
-       const response =  await axios.get(`https://delicious-rd7e.onrender.com1/${id}` )
+       const response =  await axios.get(`http://localhost:3001/${id}` )
        console.log(response.data)
 
         setFood(response.data.data)
@@ -32,7 +32,7 @@ function SingleFood() {
    
    const deleteFood= async()=>{
 
-    const response =  await axios.delete(`https://delicious-rd7e.onrender.com/${id}`)
+    const response =  await axios.delete(`http://localhost:3001/${id}`)
      console.log(response)
 
     if(response.status=== 200){
