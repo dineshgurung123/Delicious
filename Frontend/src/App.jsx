@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import Home from './Home/Home'
 import Food from './components/Food'
-import SingleFood from './components/singleFood'
+import SingleFood from './components/SingleFood.jsx'
 import AddFood from './components/AddFood'
 import Edit from './components/Edit'
 import Login from './components/Login'
