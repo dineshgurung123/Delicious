@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Cards from './Cards'
 
-function Offer() {
+function Offers() {
     const [food, setFood] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -43,4 +43,4 @@ function Offer() {
     )
 }
 
-export default Offer
+export default Offers

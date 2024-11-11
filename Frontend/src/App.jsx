@@ -2,11 +2,11 @@ import React from 'react'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 
 import Home from './Home/Home'
-import Food from './components/Food'
-import SingleFood from './components/SingleFood.jsx'
-import AddFood from './components/AddFood'
-import Edit from './components/Edit'
-import Login from './components/Login'
+import Food from './componentss/Food.jsx'
+import SingleFood from './componentss/SingleFood.jsx'
+import AddFood from './componentss/AddFood.jsx'
+import Edit from './componentss/Edit.jsx'
+import Login from './componentss/Login.jsx'
 
 function App() {
   return (

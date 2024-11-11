@@ -1,9 +1,10 @@
 import React from "react"
-import Navbar from "../components/Navbar"
-import Find from "../components/Find"
-import About from "../components/About"
-import Footer from "../components/Footer"
-import Offer from "../components/Offer"
+import Navbar from "../componentss/Navbar"
+import Find from "../componentss/Find"
+import About from "../componentss/About"
+import Offer from  "../componentss/Offers"
+import Footer from "../componentss/Footer"
+
 
 function Home() {
   return (
