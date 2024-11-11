@@ -6,6 +6,7 @@ import Food from './components/Food'
 import SingleFood from './components/singleFood'
 import AddFood from './components/AddFood'
 import Edit from './components/Edit'
+import Login from './components/Login'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
     <Route path='/:id' element = {<SingleFood/>}/>
     <Route path = '/addFood' element = {<AddFood/>}/>
     <Route path='/edit/:id' element = {<Edit/>}/>
+    <Route path='/login' element = {<Login/>}/>
     
     
   </Routes>

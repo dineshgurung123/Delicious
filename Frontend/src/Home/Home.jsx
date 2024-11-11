@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar"
 import Find from "../components/Find"
 import About from "../components/About"
 import Footer from "../components/Footer"
-import Offer from "../components/offer"
+import Offer from "../components/Offer"
 
 function Home() {
   return (

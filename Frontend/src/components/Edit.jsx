@@ -22,7 +22,7 @@ description : ''
 useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/${id}`)
+        const response = await axios.get(`https://delicious-rd7e.onrender.com/${id}`)
         setData(response.data) // Set the existing data for editing
       } catch (error) {
         console.error("Error fetching data", error)

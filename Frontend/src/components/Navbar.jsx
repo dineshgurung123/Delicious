@@ -22,7 +22,7 @@ function Navbar() {
          
          <div><Link to="/food">Food Items</Link></div>
          <div>
-          <button className="bg-black text-yellow-300 h-7 w-16 rounded">Login</button>
+        <Link to= "/login">  <button className="bg-black text-yellow-300 h-7 w-16 rounded">Login</button></Link>
           </div>
          
         </div>
