@@ -19,6 +19,7 @@ function App() {
     <Route path = '/addFood' element = {<AddFood/>}/>
     <Route path='/edit/:id' element = {<Edit/>}/>
     
+    
   </Routes>
   
   </BrowserRouter>
