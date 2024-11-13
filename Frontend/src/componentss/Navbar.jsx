@@ -24,6 +24,11 @@ function Navbar() {
          <div>
         <Link to= "/login">  <button className="bg-black text-yellow-300 h-7 w-16 rounded">Login</button></Link>
           </div>
+
+           <div >
+          <Link to= "/cart"> 🛒</Link>
+          
+           </div>
          
         </div>
       </div>
