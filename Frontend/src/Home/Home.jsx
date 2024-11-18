@@ -4,7 +4,7 @@ import Find from "../componentss/Find"
 import About from "../componentss/About"
 import Offer from  "../componentss/Offers"
 import Footer from "../componentss/Footer"
-
+import Welcome from "../componentss/Welcome"
 
 function Home() {
   return (
@@ -13,10 +13,13 @@ function Home() {
     
      
   <Navbar/>
+
+  <Welcome/>
+  <Offer/>
   <Find/>
   <About/>
-  <Offer/>
   <Footer/>
+  
 
     </div>
   )

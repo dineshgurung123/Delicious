@@ -1,41 +1,41 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-
-function Cards({item}) {
-
-     
-
+function Cards({ item }) {
     return (
-   
-   <>
-  <Link to={`/${item._id}`}>
-  
-   <div className=' mt-4 p-2 flex flex-wrap gap-1 '>
-  
-  
-   <div className="card card-compact bg-base-100 w-80 shadow-xl rounded-md ml-2 ">
-  <figure>
-    <img
-      src= {item.img}
-      alt=""   className="w-full h-48 object-cover rounded-t-md"/>
-  </figure>
-  <div className="card-body flex ">
-    <h2 className="card-title mx-2 mt-2">{item.name}</h2>
-    <h2 className='card-title mt-2'>Rs {item.price} </h2>
-
-    <div className="flex card-actions justify-center p-1">
-      <button className="btn btn-primary bg-lime-400 rounded p-1 m-1 text-xs ">Order Now</button>
-      <button className="btn btn-primary bg-lime-400 rounded p-1 m-1 text-xs">Add to cart</button>
-  
-    </div>
-  </div>
-</div> 
-
-   </div>
-   </Link>
-   </>
-  )
+        <>
+            <Link to={`/${item._id}`}>
+                <div className="mt-4 p-2">
+                    <div className="card card-compact bg-base-100 w-80 shadow-xl rounded-md ml-2 transform transition duration-300 hover:scale-105 hover:shadow-2xl relative">
+                        {/* Image Section */}
+                        <figure>
+                            <img
+                                src={item.img}
+                                alt={item.name}
+                                className="w-full h-48 object-cover rounded-t-md"
+                            />
+                        </figure>
+                        {/* Card Body */}
+                        <div className="card-body">
+                            <h2 className="card-title text-lg font-semibold">{item.name}</h2>
+                            <h2 className="card-title text-md font-medium text-gray-600">
+                                Rs {item.price}
+                            </h2>
+                        </div>
+                        {/* Buttons */}
+                        <div className="flex justify-between px-4 py-3 absolute bottom-0 left-0 w-full bg-white rounded-b-md">
+                            <button className="btn bg-lime-400 hover:bg-lime-500 text-xs rounded px-4 py-2">
+                                Order Now
+                            </button>
+                            <button className="btn bg-lime-400 hover:bg-lime-500 text-xs rounded px-4 py-2">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Link>
+        </>
+    );
 }
 
-export default Cards
+export default Cards;
