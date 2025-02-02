@@ -5,6 +5,7 @@ import About from "../componentss/About"
 import Offer from  "../componentss/Offers"
 import Footer from "../componentss/Footer"
 import Welcome from "../componentss/Welcome"
+import FeaturedFood from "../componentss/FeaturedFood"
 
 function Home() {
   return (
@@ -15,10 +16,14 @@ function Home() {
   <Navbar/>
 
   <Welcome/>
-  <Offer/>
-  <Find/>
   <About/>
+  {/* <Offer/> */}
+  <FeaturedFood/>
+  <Find/>
+
+  
   <Footer/>
+ 
   
 
     </div>

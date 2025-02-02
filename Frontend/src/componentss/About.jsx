@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import 'animate.css'; // Ensure Animate.css is imported
+import React, { useEffect, useRef, useState } from "react";
+import "animate.css";
 
 function About() {
   const aboutRef = useRef(null);
@@ -8,66 +8,48 @@ function About() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
+        setInView(entry.isIntersecting);
       },
-      {
-        threshold: 0.5, // Trigger when 50% of the element is visible
-      }
+      { threshold: 0.5 }
     );
 
-    if (aboutRef.current) {
-      observer.observe(aboutRef.current);
-    }
+    if (aboutRef.current) observer.observe(aboutRef.current);
 
-    return () => {
-      if (aboutRef.current) {
-        observer.unobserve(aboutRef.current);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <div className="relative py-10">
+    <div className="relative py-16 bg-gradient-to-r from-gray-800 via-gray-600 to-gray-500">
       {/* Background Image Block */}
       <div className="relative" ref={aboutRef}>
         <img
-          src="https://thumbs.dreamstime.com/b/buffet-food-delicious-cocktails-hotel-321402369.jpg"
-          alt="Food"
-          className="w-full h-96 object-cover"
+          src="https://images.unsplash.com/photo-1556740749-887f6717d7e4" // Beautiful image of a dish
+          alt="Gourmet Cuisine"
+          className="w-full h-[400px] object-cover rounded-lg shadow-md"
         />
-        {/* Overlay Block for Text */}
-        <div className="absolute inset-0 bg-black opacity-40"></div>
-        {/* Heading */}
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
         <h1
-          className={`absolute text-4xl font-bold text-white bottom-16 left-1/2 transform -translate-x-1/2 ${
-            inView ? 'animate__animated animate__fadeIn animate__delay-1s' : ''
-          }`}
+          className={`absolute text-5xl font-extrabold text-white bottom-14 left-1/2 transform -translate-x-1/2 ${inView ? "animate__animated animate__fadeInDown" : "opacity-0"}`}
         >
-          About Us
+          Experience Culinary Excellence
         </h1>
       </div>
 
       {/* Content Block */}
-      <div className="mt-8 px-6 text-center">
+      <div className="mt-10 px-6 text-center">
         <p
-          className={`text-lg text-gray-700 max-w-3xl mx-auto ${
-            inView ? 'animate__animated animate__fadeIn animate__delay-2s' : ''
-          }`}
+          className={`text-xl text-white max-w-3xl mx-auto leading-relaxed ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}
         >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem molestias blanditiis, veniam quia non iusto voluptatem quae nisi dolorum eligendi. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis non distinctio ea, consequuntur veniam molestiae ad? Magnam placeat nam earum?
+          At [Restaurant Name], we take pride in offering a one-of-a-kind dining experience. Our chefs use only the finest ingredients to craft each dish, combining tradition with innovation. Every meal is a masterpiece, designed to delight your senses and transport you to new culinary horizons. Join us for a meal that’s as unforgettable as it is delicious.
         </p>
       </div>
 
       {/* Button Block */}
-      <div className="text-center mt-6">
+      <div className="text-center mt-8">
         <button
-          className={`bg-yellow-500 text-white px-6 py-2 rounded-md hover:bg-yellow-600 transition duration-300 ${
-            inView ? 'animate__animated animate__fadeIn animate__delay-3s' : ''
-          }`}
+          className={`bg-orange-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-orange-600 transition duration-300 shadow-xl ${inView ? "animate__animated animate__fadeInUp" : "opacity-0"}`}
         >
-          Learn More
+          Book A Table
         </button>
       </div>
     </div>
