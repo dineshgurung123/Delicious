@@ -20,7 +20,7 @@ function Navbar() {
   const handleLogout = async () => {
     try {
       // Hit the logout API endpoint (replace with your actual logout endpoint)
-      await axios.post('http://localhost:3001/logout');
+      await axios.post('https://delicious-rd7e.onrender.com/logout');
       
       // Clear the auth token from localStorage
       localStorage.removeItem('authToken');
