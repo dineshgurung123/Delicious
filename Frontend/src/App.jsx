@@ -8,6 +8,7 @@ import AddFood from './componentss/AddFood.jsx'
 import Edit from './componentss/Edit.jsx'
 import Login from './componentss/Login.jsx'
 import Cart from './componentss/Cart.jsx'
+import Register from './componentss/Register.jsx'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
     <Route path='/edit/:id' element = {<Edit/>}/>
     <Route path='/login' element = {<Login/>}/>
     <Route path='/cart' element = {<Cart/>}/>
+    <Route path='/register' element = {<Register/>}/>
     
     
   </Routes>
