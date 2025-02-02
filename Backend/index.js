@@ -105,7 +105,7 @@ app.post('/login', async(req, res) => {
     try {
         const { email, password } = req.body;
         const user = await userModel.findOne({ email: email });
-
+     
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -137,7 +137,7 @@ app.post('/login', async(req, res) => {
 
     } catch (error) {
         console.error("Error during login:", error);
-        res.status(500).send("Internal server error");
+        res.status(500).send("Internal server error heheehe");
     }
 });
 
