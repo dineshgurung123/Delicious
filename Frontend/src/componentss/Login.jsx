@@ -20,7 +20,7 @@ function Login() {
 
     try {
       // Sending POST request to the /login API
-      const response = await axios.post('http://localhost:3001/login', {
+      const response = await axios.post('https://delicious-rd7e.onrender.com/login', {
         email,
         password,
       });

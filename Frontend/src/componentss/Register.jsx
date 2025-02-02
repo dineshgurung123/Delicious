@@ -21,7 +21,7 @@ function Register() {
 
     try {
       // Sending POST request to the /register API
-      const response = await axios.post("http://localhost:3001/register", {
+      const response = await axios.post("https://delicious-rd7e.onrender.com/register", {
         name,
         email,
         password,
