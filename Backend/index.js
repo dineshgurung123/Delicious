@@ -21,7 +21,7 @@ const URI = process.env.MongoDBURI;
 
 app.use(cookieParser());
 
-app.get("/", isLoggedIn,  async(req, res) => {
+app.get("/",  async(req, res) => {
     try {
         const food = await Food.find();
         res.status(200).json({

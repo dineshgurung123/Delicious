@@ -3,34 +3,32 @@ import { motion } from "framer-motion";
 
 function Welcome() {
   return (
-    <div className="flex items-center justify-between px-10 py-32 bg-gradient-to-r from-gray-800 via-gray-600 to-gray-500 text-white">
-      {/* Text Section */}
+    <div
+      className="relative flex items-center justify-center min-h-screen px-10 text-white text-center"
+      style={{
+        backgroundImage:
+          "url('https://static.vecteezy.com/system/resources/previews/015/322/833/non_2x/chicken-dish-top-view-with-wooden-pattern-background-chicken-meat-collection-chicken-food-hand-drawn-style-illustration-vintage-design-for-restaurant-menu-and-template-vector.jpg')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Overlay for better readability */}
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      {/* Content Section */}
       <motion.div
-        className="w-full md:w-1/2 space-y-4"
-        initial={{ opacity: 0, x: -50 }}
-        animate={{ opacity: 1, x: 0 }}
+        className="relative z-10 max-w-3xl space-y-8 px-5"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
-        <h1 className="text-5xl font-extrabold tracking-wide leading-tight">
+        <h1 className="text-7xl font-extrabold tracking-wide leading-tight">
           Discover Delicious
         </h1>
-        <p className="text-xl opacity-80 max-w-lg">
-          Your Gateway to Flavors from Around the World! Get ready for a culinary journey like no other.
+        <p className="text-2xl opacity-90">
+          Your Gateway to Flavors from Around the World! Get ready for a
+          culinary journey like no other.
         </p>
-      </motion.div>
-
-      {/* Image Section */}
-      <motion.div
-        className="w-full md:w-1/2 flex justify-end"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, delay: 0.5 }}
-      >
-        <img
-          src="https://img.freepik.com/premium-photo/close-up-burger-table_1048944-27735609.jpg?w=740"
-          alt="Delicious Burger"
-          className="rounded-xl shadow-lg w-full max-w-sm"
-        />
       </motion.div>
     </div>
   );
