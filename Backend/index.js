@@ -8,6 +8,7 @@ import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser'; // Add this import
 import userModel from './Model/auth.model.js';
 import isLoggedIn from './middleware/login.js';
+import Feedback from './Model/feedback.model.js';
 
 const app = express();
 app.use(express.json());
@@ -47,6 +48,22 @@ app.post("/", async(req, res) => {
 });
 
 
+app.get("/feedback", async (req, res) => {
+    try {
+        
+      const feedbacks = await Feedback.find();
+      console.log(feedbacks);
+      
+      res.status(200).json({
+        message: "Feedbacks fetched successfully",
+        data: feedbacks,
+      });
+    } catch (error) {
+      console.error("Error fetching feedbacks:", error.message);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
 
 app.get("/:id", async(req, res) => {
     try {
@@ -82,6 +99,37 @@ app.patch("/:id", async(req, res) => {
         message: "Updated successfully"
     });
 });
+
+
+app.post("/feedback", async (req, res) => {
+    try {
+      const { name, comment } = req.body;
+  
+      const feedback = await Feedback.create({
+        name,
+        comment,
+      });
+  
+      res.status(201).json({
+        message: "Feedback added successfully",
+        data: feedback,
+      });
+    } catch (error) {
+      console.error("Error adding feedback:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  
+
+  
+
+
+
+
+
+
+
 
 app.post('/register', async(req, res) => {
     try {
@@ -151,6 +199,12 @@ app.post('/logout', (req, res)=>{
         message: "User logged out successfully"
     });
 })
+
+
+
+
+
+
 
 // MongoDB connection
 try {

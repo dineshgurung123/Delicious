@@ -7,6 +7,7 @@ import Footer from "../componentss/Footer"
 import Welcome from "../componentss/Welcome"
 import FeaturedFood from "../componentss/FeaturedFood"
 import Feedback from "../componentss/Feedback"
+import FeedbackForm from "../componentss/FeedBackForm"
 
 function Home() {
   return (
@@ -22,6 +23,7 @@ function Home() {
   <Find/>
   <About/>
  <Feedback/>
+ <FeedbackForm/>
  
   
   {/* <Offer/> */}

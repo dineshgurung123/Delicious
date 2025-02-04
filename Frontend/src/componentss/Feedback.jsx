@@ -1,50 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-function Feedback() {
-  const feedbackData = [
-    {
-      name: "Pravat Nagarkoti",
-      rating: 5,
-      review: "Babal mitho xa",
-    },
-    {
-      name: "Pawan Thapa",
-      rating: 4,
-      review: "Best place to order food from. The food is delicious and the service is great!",
-    },
-    {
-      name: "Ram Thapa",
-      rating: 5,
-      review: "I am a regular customer and I love the food here. The taste is amazing and the service is great!",
-    },
-  ];
+function FeedbackList() {
+  const [feedbacks, setFeedbacks] = useState([]);
+
+  useEffect(() => {
+    const fetchFeedbacks = async () => {
+      try {
+        const response = await axios.get(`https://delicious-rd7e.onrender.com/feedback`);
+        setFeedbacks(response.data.data);
+      } catch (error) {
+        console.error("Error fetching feedbacks:", error);
+      }
+    };
+
+    fetchFeedbacks();
+  }, []);
 
   return (
     <div className="py-16 bg-gradient-to-r from-gray-800 via-gray-600 to-gray-500 text-white">
-      <h2 className="text-4xl font-bold text-center mb-12">Customer Feedback</h2>
-      <div className="flex justify-center space-x-8">
-        {feedbackData.map((feedback, index) => (
+      <h2 className="text-4xl font-bold text-center mb-12 tracking-wider">
+        Customer Feedback
+      </h2>
+      <div className="flex flex-wrap justify-center gap-8">
+        {feedbacks.slice(-3).map((feedback, index) => (
           <div
             key={index}
-            className="bg-gray-700 p-8 rounded-lg shadow-lg max-w-xs text-center"
+            className="bg-gray-700 p-6 rounded-lg shadow-lg max-w-xs h-72 text-center m-2 transform transition-all hover:scale-105 hover:shadow-2xl"
+            style={{ minWidth: "300px" }}
           >
-            <h3 className="text-xl font-semibold">{feedback.name}</h3>
-            <div className="flex justify-center my-2">
-              {Array.from({ length: feedback.rating }, (_, index) => (
-                <svg
-                  key={index}
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  fill="currentColor"
-                  className="text-yellow-400"
-                  viewBox="0 0 16 16"
-                >
-                  <path d="M8 12l3.09 2-1.18-4.36L12 5.91h-4.18L6.09 9.64 8 12z" />
-                </svg>
-              ))}
+            {/* Default Person Emoji */}
+            <div className="text-4xl mb-4">
+              <span role="img" aria-label="person" className="color-white">
+                👨🏿
+              </span>
             </div>
-            <p className="text-md text-opacity-80">{feedback.review}</p>
+
+            <h3 className="text-2xl font-semibold mb-3">{feedback.name}</h3>
+            <p className="text-md text-opacity-80 mt-2 leading-relaxed">
+              {feedback.comment || "No feedback provided."}
+            </p>
           </div>
         ))}
       </div>
@@ -52,4 +47,4 @@ function Feedback() {
   );
 }
 
-export default Feedback;
+export default FeedbackList;
