@@ -44,7 +44,7 @@ function Navbar() {
         {/* Navigation Links */}
         <div className="flex space-x-8 text-lg">
           <Link to="/" className="hover:text-green-600 transition">Home</Link>
-          <Link to="/addFood" className="hover:text-green-600 transition">Add Foods</Link>
+          {/* <Link to="/addFood" className="hover:text-green-600 transition">Add Foods</Link> */}
           <Link to="/food" className="hover:text-green-600 transition">Food Items</Link>
           <Link to="/cart" className="hover:text-green-600 transition text-xl">🛒</Link>
 
