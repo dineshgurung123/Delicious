@@ -10,7 +10,6 @@ import userModel from './Model/auth.model.js';
 import isLoggedIn from './middleware/login.js';
 import Feedback from './Model/feedback.model.js';
 import axios from 'axios'; // Add axios import here
-import { OpenAI } from 'openai'; // Add OpenAI integration
 
 dotenv.config();
 
@@ -60,26 +59,6 @@ app.post("/", async (req, res) => {
     }
 });
 
-// Update chatbot endpoint to use OpenAI API
-app.post("/chat", async (req, res) => {
-  const { message } = req.body;
-
-  try {
-    const response = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo", // You can also use "gpt-4" if you have access
-      messages: [{ role: "user", content: message }],
-    });
-
-    const botReply = response.choices[0].message.content;
-    res.status(200).json({ reply: botReply });
-  } catch (error) {
-    console.error("Error communicating with OpenAI API:", error.message);
-    res.status(500).json({
-      error: "Chatbot service is unavailable at the moment.",
-      details: error.message,
-    });
-  }
-});
 
 // Feedback routes
 app.get("/feedback", async (req, res) => {
