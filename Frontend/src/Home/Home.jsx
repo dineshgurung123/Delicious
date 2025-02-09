@@ -8,7 +8,6 @@ import Welcome from "../componentss/Welcome"
 import FeaturedFood from "../componentss/FeaturedFood"
 import Feedback from "../componentss/Feedback"
 import FeedbackForm from "../componentss/FeedBackForm"
-import Chatbot from "../componentss/ChatBot"
 
 function Home() {
   return (
@@ -26,13 +25,6 @@ function Home() {
   <About/>
  <Feedback/>
  <FeedbackForm/>
-
- 
- <Chatbot/>
- 
-  
-  {/* <Offer/> */}
- 
 
 
   
