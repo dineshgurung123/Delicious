@@ -21,9 +21,6 @@ app.use(Cors({
 }));
 app.use(cookieParser()); // Use cookie parser middleware
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY, // Your OpenAI API key
-});
 
 const PORT = process.env.PORT || 3001;
 const URI = process.env.MongoDBURI;
