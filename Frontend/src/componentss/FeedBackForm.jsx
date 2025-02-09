@@ -24,34 +24,44 @@ function FeedbackForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-100 p-8 rounded-md">
-      <h2 className="text-2xl font-bold mb-4">Submit Your Feedback</h2>
-      <div className="mb-4">
-        <label className="block text-gray-700">Name</label>
-        <input
-          type="text"
-          className="border p-2 w-full"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label className="block text-gray-700">Comment</label>
-        <textarea
-          className="border p-2 w-full"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded-md"
+    <div className="flex justify-center items-center min-h-screen bg-gray-50">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-10 rounded-lg shadow-lg w-full sm:w-96"
       >
-        Submit
-      </button>
-    </form>
+        <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">We value your feedback</h2>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Name</label>
+          <input
+            type="text"
+            className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            placeholder="Your name"
+          />
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-gray-700 font-medium mb-2">Comment</label>
+          <textarea
+            className="border border-gray-300 p-3 w-full rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            required
+            placeholder="Share your thoughts"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white font-semibold py-3 rounded-md hover:bg-blue-600 transition duration-300 ease-in-out"
+        >
+          Submit Feedback
+        </button>
+      </form>
+    </div>
   );
 }
 

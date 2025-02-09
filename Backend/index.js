@@ -9,20 +9,27 @@ import cookieParser from 'cookie-parser'; // Add this import
 import userModel from './Model/auth.model.js';
 import isLoggedIn from './middleware/login.js';
 import Feedback from './Model/feedback.model.js';
-
-const app = express();
-app.use(express.json());
-app.use(Cors());
-app.use(cookieParser()); // Use cookie parser middleware
+import axios from 'axios'; // Add axios import here
+import { OpenAI } from 'openai'; // Add OpenAI integration
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const app = express();
+app.use(express.json());
+app.use(Cors({
+    origin: 'http://localhost:5173', // Frontend origin
+    credentials: true, // Allow credentials (cookies)
+}));
+app.use(cookieParser()); // Use cookie parser middleware
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY, // Your OpenAI API key
+});
+
+const PORT = process.env.PORT || 3001;
 const URI = process.env.MongoDBURI;
 
-app.use(cookieParser());
-
-app.get("/",  async(req, res) => {
+app.get("/", async (req, res) => {
     try {
         const food = await Food.find();
         res.status(200).json({
@@ -31,107 +38,85 @@ app.get("/",  async(req, res) => {
         });
     } catch (error) {
         console.log(error);
+        res.status(500).json({ message: "Error fetching food" });
     }
 });
 
-app.post("/", async(req, res) => {
+app.post("/", async (req, res) => {
     const { name, price, description, img } = req.body;
-    await Food.create({
-        name,
-        price,
-        description,
-        img
-    });
-    res.status(200).json({
-        message: "Food creation api hit successfully"
-    });
+    try {
+        await Food.create({
+            name,
+            price,
+            description,
+            img
+        });
+        res.status(200).json({
+            message: "Food creation API hit successfully"
+        });
+    } catch (error) {
+        console.error("Error creating food item:", error);
+        res.status(500).json({ message: "Error creating food item" });
+    }
 });
 
+// Update chatbot endpoint to use OpenAI API
+app.post("/chat", async (req, res) => {
+  const { message } = req.body;
 
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-3.5-turbo", // You can also use "gpt-4" if you have access
+      messages: [{ role: "user", content: message }],
+    });
+
+    const botReply = response.choices[0].message.content;
+    res.status(200).json({ reply: botReply });
+  } catch (error) {
+    console.error("Error communicating with OpenAI API:", error.message);
+    res.status(500).json({
+      error: "Chatbot service is unavailable at the moment.",
+      details: error.message,
+    });
+  }
+});
+
+// Feedback routes
 app.get("/feedback", async (req, res) => {
     try {
+        const feedbacks = await Feedback.find();
+        console.log(feedbacks);
         
-      const feedbacks = await Feedback.find();
-      console.log(feedbacks);
-      
-      res.status(200).json({
-        message: "Feedbacks fetched successfully",
-        data: feedbacks,
-      });
+        res.status(200).json({
+            message: "Feedbacks fetched successfully",
+            data: feedbacks,
+        });
     } catch (error) {
-      console.error("Error fetching feedbacks:", error.message);
-      res.status(500).json({ message: "Internal server error" });
+        console.error("Error fetching feedbacks:", error.message);
+        res.status(500).json({ message: "Internal server error" });
     }
-  });
-
-
-// app.get("/:id", async(req, res) => {
-//     try {
-//         const id = req.params.id.trim();
-//         const food = await Food.findById(id);
-//         res.status(200).json({
-//             message: "Data fetched successfully",
-//             data: food
-//         });
-//     } catch (error) {
-//         console.log(error);
-//     }
-// });
-
-app.delete("/:id", async(req, res) => {
-    const id = req.params.id.trim();
-    await Food.findByIdAndDelete(id);
-    res.status(200).json({
-        message: "Deleted successfully"
-    });
 });
-
-app.patch("/:id", async(req, res) => {
-    const id = req.params.id;
-    const { name, img, price, description } = req.body;
-    await Food.findByIdAndUpdate(id, {
-        name: name,
-        img: img,
-        price: price,
-        description: description
-    }, { new: true });
-    res.status(200).json({
-        message: "Updated successfully"
-    });
-});
-
 
 app.post("/feedback", async (req, res) => {
     try {
-      const { name, comment } = req.body;
-  
-      const feedback = await Feedback.create({
-        name,
-        comment,
-      });
-  
-      res.status(201).json({
-        message: "Feedback added successfully",
-        data: feedback,
-      });
+        const { name, comment } = req.body;
+        const feedback = await Feedback.create({
+            name,
+            comment,
+        });
+
+        res.status(201).json({
+            message: "Feedback added successfully",
+            data: feedback,
+        });
     } catch (error) {
-      console.error("Error adding feedback:", error);
-      res.status(500).json({ message: "Internal server error" });
+        console.error("Error adding feedback:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
-  });
+});
 
-  
-
-  
-
-
-
-
-
-
-
-
-app.post('/register', async(req, res) => {
+// User Authentication
+app.post('/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
         // Hash the password
@@ -139,21 +124,22 @@ app.post('/register', async(req, res) => {
 
         // Create a new user
         const newUser = await userModel.create({
-            name: name,
-            email: email,
+            name,
+            email,
             password: hashedPassword
         });
-        res.send("User created");
+        res.status(201).json({ message: "User created", data: newUser });
     } catch (error) {
         console.error("Error in user registration service:", error);
+        res.status(500).json({ message: "Internal server error" });
     }
 });
 
-app.post('/login', async(req, res) => {
+app.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await userModel.findOne({ email: email });
-     
+        const user = await userModel.findOne({ email });
+
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -185,26 +171,58 @@ app.post('/login', async(req, res) => {
 
     } catch (error) {
         console.error("Error during login:", error);
-        res.status(500).send("Internal server error heheehe");
+        res.status(500).send("Internal server error");
     }
 });
 
-
-
-app.post('/logout', (req, res)=>{
-
-
+app.post('/logout', (req, res) => {
     res.clearCookie('authToken');
     res.status(200).json({
         message: "User logged out successfully"
     });
-})
+});
+
+// Cart Access Route (with authentication)
+app.get('/cart', isLoggedIn, (req, res) => {
+    res.status(200).json({
+        message: "You are logged in and can access the cart.",
+    });
+});
 
 
 
+// CRUD Operations for Food
+app.delete("/:id", async (req, res) => {
+    const id = req.params.id.trim();
+    try {
+        await Food.findByIdAndDelete(id);
+        res.status(200).json({
+            message: "Deleted successfully"
+        });
+    } catch (error) {
+        console.error("Error deleting food item:", error);
+        res.status(500).json({ message: "Error deleting food item" });
+    }
+});
 
-
-
+app.patch("/:id", async (req, res) => {
+    const id = req.params.id;
+    const { name, img, price, description } = req.body;
+    try {
+        await Food.findByIdAndUpdate(id, {
+            name,
+            img,
+            price,
+            description
+        }, { new: true });
+        res.status(200).json({
+            message: "Updated successfully"
+        });
+    } catch (error) {
+        console.error("Error updating food item:", error);
+        res.status(500).json({ message: "Error updating food item" });
+    }
+});
 
 // MongoDB connection
 try {

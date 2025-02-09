@@ -1,73 +1,82 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie"; // Import js-cookie for cookie management
+import { FaSignOutAlt } from "react-icons/fa"; // Importing a logout icon from react-icons
 
 function Navbar() {
   const navigate = useNavigate();
-
-  // Define the state to track authentication status
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check if the user is authenticated on page load
+  // Check if the user is authenticated based on the cookie
   useEffect(() => {
-    const token = localStorage.getItem('authToken'); // Check for token in localStorage
+    const token = Cookies.get("authToken"); // Get the token from cookies
     if (token) {
-      setIsAuthenticated(true); // If the token exists, user is authenticated
+      setIsAuthenticated(true); // User is authenticated if token exists
+    } else {
+      setIsAuthenticated(false); // No token, user is not authenticated
     }
-  }, []);
+  }, []); // Empty dependency array ensures this effect runs only once when the component mounts
 
   // Handle logout
   const handleLogout = async () => {
     try {
-      // Hit the logout API endpoint (replace with your actual logout endpoint)
-      await axios.post('https://delicious-rd7e.onrender.com/logout');
-      
-      // Clear the auth token from localStorage
-      localStorage.removeItem('authToken');
-      
-      // Set authenticated state to false
+      // Send the request to the backend to log out
+      const response = await axios.post('http://localhost:3001/logout', {}, { withCredentials: true });
+
+      // If logout is successful, clear the token from cookies
+      Cookies.remove("authToken");
+
+      // Set the authenticated state to false
       setIsAuthenticated(false);
-      
-      // Redirect to login page after logout
-      navigate('/login');
+
+      // // Redirect to login page after logout
+      // navigate('/login');
     } catch (error) {
       console.error("Error occurred during logout", error);
     }
   };
 
   return (
-    <nav className="bg-white shadow-md fixed top-0 w-full z-50">
-      <div className="container mx-auto flex items-center justify-between py-4 px-10">
+    <nav className="bg-white shadow-lg fixed top-0 w-full z-50 px-10 py-5">
+      <div className="container mx-auto flex items-center justify-between">
         {/* Logo */}
-        <h1 className="text-2xl font-bold text-gray-900">Delicious 🍔</h1>
+        <h1 className="text-3xl font-semibold text-black tracking-wide">Delicious 🍔</h1>
 
         {/* Navigation Links */}
-        <div className="flex space-x-8 text-lg">
+        <div className="flex space-x-8 text-lg text-black">
           <Link to="/" className="hover:text-green-600 transition">Home</Link>
-          {/* <Link to="/addFood" className="hover:text-green-600 transition">Add Foods</Link> */}
           <Link to="/food" className="hover:text-green-600 transition">Food Items</Link>
-          <Link to="/cart" className="hover:text-green-600 transition text-xl">🛒</Link>
+          <Link to="/cart" className="hover:text-green-600 transition text-2xl">🛒</Link>
+          <Link to="/addFood" className="hover:text-green-600 transition text-xl">Add Item</Link>
 
-          {/* Conditionally render Login/Logout button */}
-          {isAuthenticated ? (
-            <button
-              onClick={handleLogout}
-              className="bg-black text-white px-5 py-2 rounded-md hover:bg-green-600 transition ease-in-out duration-300 transform hover:scale-105"
-            >
-              Logout
-            </button>
-          ) : (
+        </div>
+
+         
+      
+
+        {/* Always display logout icon */}
+        <button
+          onClick={handleLogout}
+          className="text-xl text-red-600 hover:text-red-800 transition duration-300 transform hover:scale-125 absolute top-8 right-4"
+        >
+          <FaSignOutAlt />
+        </button>
+
+        {/* Buttons for Login and Register (only show when not authenticated) */}
+        <div className="flex space-x-4 items-center">
+          {!isAuthenticated && (
             <>
               {/* Login Button */}
               <Link to="/login">
-                <button className="bg-black text-white px-5 py-2 rounded-md hover:bg-green-600 transition ease-in-out duration-300 transform hover:scale-105">
+                <button className="bg-black text-white text-sm px-5 py-2 rounded-md shadow-md hover:bg-green-600 hover:text-white transition ease-in-out duration-300 transform hover:scale-105">
                   Login
                 </button>
               </Link>
 
               {/* Register Button */}
               <Link to="/register">
-                <button className="bg-gradient-to-r from-green-400 to-green-600 text-white px-6 py-3 rounded-full shadow-md hover:from-green-500 hover:to-green-700 transition ease-in-out duration-300 transform hover:scale-105">
+                <button className="bg-gradient-to-r from-green-400 to-green-600 text-white text-sm px-6 py-3 rounded-md shadow-md hover:from-green-500 hover:to-green-700 transition ease-in-out duration-300 transform hover:scale-105">
                   Register
                 </button>
               </Link>

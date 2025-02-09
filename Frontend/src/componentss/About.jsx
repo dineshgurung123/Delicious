@@ -39,8 +39,8 @@ function About() {
           }`}
         >
           At Delicious, we take pride in offering a unique dining experience.  
-          Our chefs craft each dish using the finest ingredients, blending **tradition**  
-          with **innovation** to create unforgettable flavors.
+          Our chefs craft each dish using the finest ingredients, blending tradition 
+          with innovation to create unforgettable flavors.
         </p>
       </div>
 

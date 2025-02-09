@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 function AddFood() {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ function AddFood() {
 
   return (
     <>
+    <Navbar/>
       <div className="max-w-4xl mx-auto mt-10 p-5">
         <div className="bg-white border-2 border-gray-300 rounded-lg shadow-lg overflow-hidden">
           <div className="flex items-center justify-between p-6 bg-cyan-600 text-white">
@@ -120,7 +122,7 @@ function AddFood() {
                   />
                 </div>
 
-                <div className="col-span-1 sm:col-span-2">
+                {/* <div className="col-span-1 sm:col-span-2">
                   <label
                     htmlFor="product-details"
                     className="text-sm font-medium text-gray-900 block mb-2"
@@ -135,7 +137,7 @@ function AddFood() {
                     placeholder="Enter Description"
                     onChange={handleChange}
                   ></textarea>
-                </div>
+                </div> */}
               </div>
             </form>
           </div>
